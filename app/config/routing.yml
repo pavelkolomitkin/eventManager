@@ -1,0 +1,17 @@
+routing_user:
+    resource: '@AppBundle/Resources/config/routing_user.yml'
+
+routing_event:
+    type: annotation
+    resource: '@AppBundle/Controller/EventController.php'
+    prefix: /event
+
+routing_event_status:
+    type: annotation
+    resource: '@AppBundle/Controller/EventStatusController.php'
+    prefix: /status
+
+routing_event_priority:
+    type: annotation
+    resource: '@AppBundle/Controller/EventPriorityController.php'
+    prefix: /priority

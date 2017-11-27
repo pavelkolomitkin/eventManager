@@ -1,0 +1,15 @@
+AppBundle\Entity\EventPriority:
+    priority_secondary:
+        title: 'Secondary'
+        code: 'secondary'
+        value: 0
+
+    priority_normal:
+        title: 'Normal'
+        code: 'normal'
+        value: 5
+
+    priority_urgent:
+        title: 'Urgent'
+        code: 'urgent'
+        value: 10

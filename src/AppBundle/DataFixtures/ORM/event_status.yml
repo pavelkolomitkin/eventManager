@@ -1,0 +1,12 @@
+AppBundle\Entity\EventStatus:
+    status_new:
+        code: 'new'
+        title: 'New'
+
+    status_fulfilled:
+        code: 'fulfilled'
+        title: 'Fulfilled'
+
+    status_canceled:
+        code: 'canceled'
+        title: 'Canceled'

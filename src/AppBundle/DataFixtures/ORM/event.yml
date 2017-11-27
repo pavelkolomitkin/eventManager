@@ -1,0 +1,110 @@
+AppBundle\Entity\Event:
+    event1:
+        title: "Shopping"
+        description: "To buy an bread, butter and milk"
+        timeStart: <(new \DateTime('2017-12-05 15:00'))>
+        timeEnd: <(new \DateTime('2017-12-05 15:30'))>
+        user: '@user1'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+
+    event2:
+        title: "Have rest"
+        description: "Go to the park"
+        timeStart: <(new \DateTime('2017-12-05 15:40'))>
+        timeEnd: <(new \DateTime('2017-12-05 17:00'))>
+        user: '@user1'
+        priority: '@priority_urgent'
+        status: '@status_new'
+
+    event3:
+        title: "Visit gym"
+        description: "Make my health better"
+        timeStart: <(new \DateTime('2017-12-05 16:45'))>
+        timeEnd: <(new \DateTime('2017-12-05 18:30'))>
+        user: '@user1'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+    event4:
+        title: "Job meeting"
+        description: "Discuss project tasks for next day and problems of current tickets"
+        timeStart: <(new \DateTime('2017-12-05 19:00'))>
+        timeEnd: <(new \DateTime('2017-12-05 20:00'))>
+        user: '@user1'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+    event5:
+        title: "Watch video of new course"
+        description: "Watch video and try to create simple application to check engine features"
+        timeStart: <(new \DateTime('2017-12-05 20:30'))>
+        timeEnd: <(new \DateTime('2017-12-05 22:00'))>
+        user: '@user1'
+        priority: '@priority_secondary'
+        status: '@status_new'
+
+    event6:
+        title: "Wake up and breakfast"
+        description: "Wake up and breakfast"
+        timeStart: <(new \DateTime('2017-12-06 07:00'))>
+        timeEnd: <(new \DateTime('2017-12-06 08:00'))>
+        user: '@user1'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+    event7:
+        title: "Days off"
+        description: "No business!"
+        timeStart: <(new \DateTime('2017-12-12 00:00'))>
+        timeEnd: <(new \DateTime('2017-12-15 06:00'))>
+        user: '@user1'
+        priority: '@priority_urgent'
+        status: '@status_new'
+
+    event8:
+        title: "Some things"
+        description: "Some things"
+        timeStart: <(new \DateTime('2017-12-05 19:00'))>
+        timeEnd: <(new \DateTime('2017-12-06 08:00'))>
+        user: '@user1'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+
+    event9:
+        title: "Watch video of new course"
+        description: "Watch video and try to create simple application to check engine features"
+        timeStart: <(new \DateTime('2017-12-05 20:30'))>
+        timeEnd: <(new \DateTime('2017-12-05 22:00'))>
+        user: '@user2'
+        priority: '@priority_secondary'
+        status: '@status_new'
+
+    event10:
+        title: "Wake up and breakfast"
+        description: "Wake up and breakfast"
+        timeStart: <(new \DateTime('2017-12-06 07:00'))>
+        timeEnd: <(new \DateTime('2017-12-06 08:00'))>
+        user: '@user2'
+        priority: '@priority_normal'
+        status: '@status_new'
+
+    event11:
+        title: "Days off"
+        description: "No business!"
+        timeStart: <(new \DateTime('2017-12-12 00:00'))>
+        timeEnd: <(new \DateTime('2017-12-15 06:00'))>
+        user: '@user2'
+        priority: '@priority_urgent'
+        status: '@status_new'
+
+    event12:
+        title: "Some things"
+        description: "Some things"
+        timeStart: <(new \DateTime('2017-12-05 19:00'))>
+        timeEnd: <(new \DateTime('2017-12-06 08:00'))>
+        user: '@user2'
+        priority: '@priority_normal'
+        status: '@status_new'
