@@ -1,0 +1,32 @@
+<h2>Edit event</h2>
+<form>
+    <div class="form-group">
+        <input name="title" class="form-control" placeholder="Title..." value="<%- title %>" />
+    </div>
+    <div class="form-group">
+        <textarea name="description" class="form-control" placeholder="Description..."><%- description %></textarea>
+    </div>
+    <div class="form-group">
+        <input type="datetime" name="timeStart" placeholder="Start time" class="form-control" value="<%- timeStart %>" />
+        <input type="datetime" name="timeEnd" placeholder="End time" class="form-control" value="<%- timeEnd %>" />
+    </div>
+    <div class="form-group">
+        <label>Priority: </label>
+        <select name="priority" class="form-control">
+            <option value="1">Normal</option>
+            <option value="2">Secondary</option>
+            <option value="3">Argent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Status: </label>
+        <select name="priority" class="form-control">
+            <option value="1">New</option>
+            <option value="2">Canceled</option>
+            <option value="3">Fulfilled</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary right" />
+    </div>
+</form>

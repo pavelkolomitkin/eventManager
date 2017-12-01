@@ -5,10 +5,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const merge = require('webpack-merge');
+const bootstrapEntryPoints = require('./webpack.bootstrap.config');
 
 const webpackCommon = {
   entry: {
-    app: ['./app/initialize']
+    app: ['./app/initialize', bootstrapEntryPoints.dev]
   },
   module: {
     loaders: [
@@ -27,8 +28,9 @@ const webpackCommon = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-      }
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'bootstrap')
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
   output: {
@@ -43,6 +45,7 @@ const webpackCommon = {
       to: './index.html'
     }]),
     new webpack.ProvidePlugin({
+      jQuery: 'jquery',
       $: 'jquery',
       _: 'underscore'
     })
