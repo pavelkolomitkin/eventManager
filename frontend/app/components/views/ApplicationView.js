@@ -8,12 +8,13 @@ import EventDetailsView from './pages/EventDetailsView';
 import CreateEventView from './pages/CreateEventView';
 import EditEventView from './pages/EditEventView';
 import NotFoundView from './pages/NotFoundPageView';
+import SessionManager from '../services/SessionManager';
 
 
 
 import template from '../../templates/application.jst';
 
-export default Marionette.View.extend({
+const ApplicationView = Marionette.View.extend({
     template: template,
 
     regions: {
@@ -21,9 +22,29 @@ export default Marionette.View.extend({
         'content': '#content-container'
     },
 
+    initialize() {
+        const session = SessionManager.getInstance();
+        session.on(SessionManager.Events.SESSION_CHANGE, this.updateHeaderState, this);
+    },
+
+
     onRender()
     {
         this.showChildView('header', new HeaderView());
+
+        const session = SessionManager.getInstance();
+        this.updateHeaderState(session.getSessionData());
+    },
+
+    updateHeaderState(userData)
+    {
+        let headerView = this.getChildView('header');
+        headerView.updateUserState(userData);
+    },
+
+    onChildviewUserLogout() {
+        const session = SessionManager.getInstance();
+        session.logout();
     },
 
     updateContentView(view)
@@ -34,7 +55,14 @@ export default Marionette.View.extend({
 
     showLogin()
     {
-        this.updateContentView(new LoginView());
+        let loginView = new LoginView();
+
+        let self = this;
+        this.listenTo(loginView, LoginView.Events.LOGIN_SUCCESS, function (result) {
+            self.triggerMethod(ApplicationView.Events.USER_LOGIN_SUCCESS, result);
+        });
+
+        this.updateContentView(loginView);
     },
 
     showRegistration()
@@ -42,9 +70,9 @@ export default Marionette.View.extend({
         this.updateContentView(new RegistrationView());
     },
 
-    showProfile()
+    showProfile(user)
     {
-        this.updateContentView(new ProfileView());
+        this.updateContentView(new ProfileView({user: user}));
     },
 
     showEventList()
@@ -72,3 +100,9 @@ export default Marionette.View.extend({
         this.updateContentView(new NotFoundView({error: error}));
     }
 });
+
+ApplicationView.Events = {
+    USER_LOGIN_SUCCESS: 'user:login:success'
+};
+
+export default ApplicationView;

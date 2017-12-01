@@ -9,3 +9,7 @@
   width: 50%;
 }
 
+form .form-error
+{
+  display: none;
+}

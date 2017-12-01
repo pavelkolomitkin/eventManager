@@ -9,53 +9,5 @@ export default Marionette.Application.extend({
         this.showView(new ApplicationView());
 
         this.router = new AppRouter(this, {});
-    },
-
-    /**
-     * Call when is
-     */
-    showLoadingProgress()
-    {
-
-    },
-
-    showLoginPage()
-    {
-        this.getView().showLogin();
-    },
-
-    showRegistrationPage()
-    {
-        this.getView().showRegistration();
-    },
-
-    showProfilePage()
-    {
-        this.getView().showProfile();
-    },
-
-    showEventsPage()
-    {
-        this.getView().showEventList();
-    },
-
-    showEventPage(id)
-    {
-        this.getView().showEvent(id);
-    },
-
-    showCreateEventPage()
-    {
-        this.getView().showCreateEvent();
-    },
-
-    showEditEventPage(id)
-    {
-        this.getView().showEditEvent(id);
-    },
-
-    showNotFoundPage(error)
-    {
-        this.getView().showNotFound(error);
     }
 });

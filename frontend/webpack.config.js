@@ -33,10 +33,15 @@ const webpackCommon = {
       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
+  // output: {
+  //   filename: 'app.js',
+  //   path: path.join(__dirname, './public'),
+  //   publicPath: '/'
+  // },
   output: {
-    filename: 'app.js',
-    path: path.join(__dirname, './public'),
-    publicPath: '/'
+      filename: 'app.js',
+      path: path.join(__dirname, '../web'),
+      publicPath: '/'
   },
   plugins: [
     new ExtractTextPlugin('app.css'),
@@ -48,7 +53,10 @@ const webpackCommon = {
       jQuery: 'jquery',
       $: 'jquery',
       _: 'underscore'
-    })
+    }),
+      // new webpack.DefinePlugin({
+      //     API_BASE_URL: 'http://127.0.0.1:8000/api/'
+      // })
   ],
   resolve: {
     root: path.join(__dirname, './app')

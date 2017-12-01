@@ -7,7 +7,6 @@ imports:
     - { resource: nelmio_api_doc.yml }
     - { resource: fos_rest.yml }
     - { resource: jms_serializer.yml }
-    - { resource: csa_guzzle.yml }
     - { resource: lexik_jwt_authentication.yml }
     - { resource: knp_paginator.yml }
     - { resource: doctrine_migrations.yml }

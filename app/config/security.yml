@@ -16,11 +16,11 @@ security:
             security: false
 
         api_login:
-            pattern:  ^/login
+            pattern:  ^/api/login
             stateless: true
             anonymous: true
             form_login:
-                check_path:               /login
+                check_path:               /api/login
                 require_previous_session: false
                 username_parameter:       username
                 password_parameter:       password
@@ -36,7 +36,7 @@ security:
 #            anonymous: true
 #
         api_register:
-            pattern: ^/register
+            pattern: ^/api/register
             anonymous: true
 #
 #        api_password_reset:
@@ -44,11 +44,11 @@ security:
 #            anonymous: true
 #
         api_login:
-            pattern:  ^/login
+            pattern:  ^/api/login
             stateless: true
             anonymous: true
             form_login:
-                check_path:               /login
+                check_path:               /api/login
                 require_previous_session: false
                 username_parameter:       username
                 password_parameter:       password
@@ -57,7 +57,7 @@ security:
             logout: true
 
         api:
-            pattern:   ^/
+            pattern:   ^/api/
             stateless: true
             lexik_jwt: ~
 
@@ -67,8 +67,8 @@ security:
 #        - { path: ^/ping,             role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/doc,              role: IS_AUTHENTICATED_ANONYMOUSLY }
 #
-        - { path: ^/register$,        role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/register$,        role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/password/reset,   role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/password/change,  role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/login$,           role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/,                 role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/login$,           role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/,                 role: IS_AUTHENTICATED_FULLY }

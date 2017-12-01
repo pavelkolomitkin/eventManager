@@ -1,5 +1,6 @@
 imports:
     - { resource: config_test.yml }
+    - { resource: csa_guzzle.yml }
 
 framework:
     profiler:
@@ -14,7 +15,7 @@ csa_guzzle:
     clients:
         local_test_api:
             config:
-                base_uri: "http://127.0.0.1:8000/app_acceptance.php/"
+                base_uri: "http://127.0.0.1:8000/app_acceptance.php/api/"
 
 parameters:
     database_name: "event_manager_test"
