@@ -6,7 +6,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000/api';
 const ApiClient = Marionette.Object.extend({
     login(username, password, callbackSuccess, callbackError)
     {
-        var self = this;
+        const self = this;
 
         $.ajax({
             type: "POST",
@@ -37,22 +37,22 @@ const ApiClient = Marionette.Object.extend({
         });
     },
 
-    register(username, email, password, callbackSuccess, callbackError)
+    register(username, email, password, passwordRepeat, callbackSuccess, callbackError)
     {
-        var self = this;
+        const self = this;
 
         $.ajax({
             type: "POST",
             url: API_BASE_URL + '/register',
-            data: {
+            data: JSON.stringify({
                 email: email,
                 username: username,
                 plainPassword:
                     {
                         first: password,
-                        second: password
+                        second: passwordRepeat
                     }
-            },
+            }),
             contentType: ApiClient.Headers.ContentType,
             dataType: 'json',
             crossDomain: true,

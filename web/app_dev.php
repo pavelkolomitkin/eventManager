@@ -27,6 +27,6 @@ if (PHP_VERSION_ID < 70000) {
 }
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
-$response->headers->set('Access-Control-Allow-Origin', '*');
+$response->headers->set('Access-Control-Allow-Origin', 'http://localhost:8080');
 $response->send();
 $kernel->terminate($request, $response);

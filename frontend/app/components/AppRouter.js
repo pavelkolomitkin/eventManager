@@ -71,6 +71,15 @@ export default Marionette.AppRouter.extend({
 
     registrationPage()
     {
+        this.applicationView.off(ApplicationView.Events.USER_REGISTER_SUCCESS);
+
+        const router = this;
+        this.applicationView.on(ApplicationView.Events.USER_REGISTER_SUCCESS, function(result) {
+            SessionManager.getInstance().keepAuthToken(result.token);
+            router.navigateWithTrigger('/profile');
+        },
+        this);
+
         this.applicationView.showRegistration();
     },
 

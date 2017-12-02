@@ -57,7 +57,7 @@ const ApplicationView = Marionette.View.extend({
     {
         let loginView = new LoginView();
 
-        let self = this;
+        const self = this;
         this.listenTo(loginView, LoginView.Events.LOGIN_SUCCESS, function (result) {
             self.triggerMethod(ApplicationView.Events.USER_LOGIN_SUCCESS, result);
         });
@@ -67,7 +67,14 @@ const ApplicationView = Marionette.View.extend({
 
     showRegistration()
     {
-        this.updateContentView(new RegistrationView());
+        let registerView = new RegistrationView();
+
+        const self = this;
+        this.listenTo(registerView, RegistrationView.Events.REGISTER_SUCCESS, function(result) {
+            self.triggerMethod(ApplicationView.Events.USER_REGISTER_SUCCESS, result);
+        });
+
+        this.updateContentView(registerView);
     },
 
     showProfile(user)
@@ -102,7 +109,8 @@ const ApplicationView = Marionette.View.extend({
 });
 
 ApplicationView.Events = {
-    USER_LOGIN_SUCCESS: 'user:login:success'
+    USER_LOGIN_SUCCESS: 'user:login:success',
+    USER_REGISTER_SUCCESS: 'user:register:success'
 };
 
 export default ApplicationView;
