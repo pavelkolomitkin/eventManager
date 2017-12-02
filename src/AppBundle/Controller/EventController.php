@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Entity\EventStatus;
 use AppBundle\Form\Type\EventType;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -18,7 +19,7 @@ class EventController extends FOSRestController
     /**
      * Get event list by filter
      *
-     * @Route(name="event_list", path="/list")
+     * @Route(name="event_list", path="/event/list")
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -48,42 +49,23 @@ class EventController extends FOSRestController
     }
 
     /**
-     * Get event info
-     *
-     * @Route(name="event_get", path="/{id}")
-     * @Method({"GET"})
-     * @ParamConverter("event", class="AppBundle\Entity\Event")
-     * @param Event $event
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getAction(Event $event, Request $request)
-    {
-        if ($event->getUser() != $this->getUser()) {
-            throw $this->createAccessDeniedException();
-        }
-
-        return $this->handleView($this->view([
-            'event' => $event
-        ]));
-    }
-
-    /**
-     * @Route(name="event_create", path="/create")
+     * @Route(name="event_create", path="/event")
      * @Method({"POST"})
      * @param Request $request
      * @return Response
      */
     public function createAction(Request $request)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+
         $event = new Event();
         $event->setUser($this->getUser());
+        $event->setStatus($entityManager->getRepository('AppBundle:EventStatus')->getStatusNew());
 
         $form = $this->createForm(EventType::class, $event);
-        $form->submit($request->request->all());
+        $form->submit($request->request->all(), false);
 
         if ($form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
 
             /** @var Event $event */
             $event = $form->getData();
@@ -109,10 +91,29 @@ class EventController extends FOSRestController
     }
 
     /**
-     * @Route(name="event_edit", path="/{eventId}/edit")
+     * Get event info
+     *
+     * @Route(name="event_get", path="event/{id}")
+     * @Method({"GET"})
+     * @ParamConverter("event", class="AppBundle\Entity\Event")
+     * @param Event $event
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getAction(Event $event, Request $request)
+    {
+        if ($event->getUser() != $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $this->handleView($this->view($event));
+    }
+
+    /**
+     * @Route(name="event_edit", path="event/{id}")
      * @Method({"PUT"})
      *
-     * @ParamConverter("event", class="AppBundle:Event", options={"id" = "eventId"})
+     * @ParamConverter("event", class="AppBundle:Event")
      * @param Event $event
      * @param Request $request
      * @return Response
@@ -148,7 +149,7 @@ class EventController extends FOSRestController
     }
 
     /**
-     * @Route(name="event_delete", path="/{id}/delete")
+     * @Route(name="event_delete", path="/event/{id}")
      * @Method({"DELETE"})
      *
      * @ParamConverter("event", class="AppBundle\Entity\Event")

@@ -51,6 +51,7 @@ class Event
      * @ORM\Column(name="timeStart", type="datetime")
      * @Assert\NotBlank()
      * @AppAssert\EventTimeRangeConstraint()
+     * @JMSSerializer\SerializedName("timeStart")
      * @JMSSerializer\Expose
      */
     private $timeStart;
@@ -60,6 +61,7 @@ class Event
      *
      * @ORM\Column(name="timeEnd", type="datetime")
      * @Assert\NotBlank()
+     * @JMSSerializer\SerializedName("timeEnd")
      * @JMSSerializer\Expose
      */
     private $timeEnd;

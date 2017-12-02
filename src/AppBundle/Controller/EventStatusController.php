@@ -26,8 +26,6 @@ class EventStatusController extends FOSRestController
             ->getRepository('AppBundle:EventStatus')
             ->findBy([], ['id' => 'ASC']);
 
-        return $this->handleView($this->view([
-            'statuses' => $statuses
-        ]));
+        return $this->handleView($this->view($statuses));
     }
 }

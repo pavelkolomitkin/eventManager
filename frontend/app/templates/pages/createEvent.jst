@@ -2,9 +2,11 @@
 <form>
     <div class="form-group">
         <input name="title" class="form-control" placeholder="Title..." />
+        <span class="text-danger form-error" id="title-error"></span>
     </div>
     <div class="form-group">
         <textarea name="description" class="form-control" placeholder="Description..."></textarea>
+        <span class="text-danger form-error" id="description-error"></span>
     </div>
 
 
@@ -17,6 +19,7 @@
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
+            <span class="text-danger form-error" id="timeStart-error"></span>
         </div>
     </div>
     <label class="col-md-1" for="dateTimeEndInput">Till</label>
@@ -28,17 +31,21 @@
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
+            <span class="text-danger form-error" id="timeEnd-error"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="event-priority">Priority</label>
-        <select id="event-priority" name="priority" class="form-control">
-            <option value="1">Normal</option>
-            <option value="2">Secondary</option>
-            <option value="3">Argent</option>
-        </select>
+        <label>Priority</label>
+        <div id="event-priority-region"></div>
+        <!--<select id="event-priority" name="priority" class="form-control">-->
+            <!--<option value="1">Normal</option>-->
+            <!--<option value="2">Secondary</option>-->
+            <!--<option value="3">Argent</option>-->
+        <!--</select>-->
+        <span class="text-danger form-error" id="time-priority-error"></span>
     </div>
+    <br />
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary right" />
     </div>

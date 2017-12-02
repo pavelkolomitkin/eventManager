@@ -17,28 +17,26 @@ Feature: User can get all priorities of events
     Then the response code should be 200
     And the response should contain json:
       """
-        {
-            "priorities": [
-                {
-                    "id": 1,
-                    "title": "Secondary",
-                    "value": 0,
-                    "code": "secondary"
-                },
-                {
-                    "id": 2,
-                    "title": "Normal",
-                    "value": 5,
-                    "code": "normal"
-                },
-                {
-                    "id": 3,
-                    "title": "Urgent",
-                    "value": 10,
-                    "code": "urgent"
-                }
-            ]
-        }
+        [
+            {
+                "id": 1,
+                "title": "Secondary",
+                "value": 0,
+                "code": "secondary"
+            },
+            {
+                "id": 2,
+                "title": "Normal",
+                "value": 5,
+                "code": "normal"
+            },
+            {
+                "id": 3,
+                "title": "Urgent",
+                "value": 10,
+                "code": "urgent"
+            }
+        ]
       """
 
   Scenario: Anonymous user can not to get priorities:

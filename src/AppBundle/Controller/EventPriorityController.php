@@ -25,8 +25,6 @@ class EventPriorityController extends FOSRestController
             ->getRepository('AppBundle:EventPriority')
             ->findBy([], ['value' => 'ASC']);
 
-        return $this->handleView($this->view([
-            'priorities' => $priorities
-        ]));
+        return $this->handleView($this->view($priorities));
     }
 }

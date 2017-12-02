@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\EventStatus;
 
 /**
  * EventStatusRepository
@@ -10,4 +11,13 @@ namespace AppBundle\Repository;
  */
 class EventStatusRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get status with code "new"
+     *
+     * @return null|object
+     */
+    public function getStatusNew()
+    {
+        return $this->findOneBy(['code' => EventStatus::STATUS_NEW]);
+    }
 }

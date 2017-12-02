@@ -46,8 +46,8 @@ Feature: User can manage his own events
             "id": 1,
             "title": "Shopping",
             "description": "To buy an bread, butter and milk",
-            "time_start": 1512475200,
-            "time_end": 1512477000,
+            "timeStart": 1512475200,
+            "timeEnd": 1512477000,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -64,8 +64,8 @@ Feature: User can manage his own events
             "id": 2,
             "title": "Have rest",
             "description": "Go to the park",
-            "time_start": 1512477600,
-            "time_end": 1512482400,
+            "timeStart": 1512477600,
+            "timeEnd": 1512482400,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -82,8 +82,8 @@ Feature: User can manage his own events
             "id": 3,
             "title": "Visit gym",
             "description": "Make my health better",
-            "time_start": 1512481500,
-            "time_end": 1512487800,
+            "timeStart": 1512481500,
+            "timeEnd": 1512487800,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -100,8 +100,8 @@ Feature: User can manage his own events
             "id": 4,
             "title": "Job meeting",
             "description": "Discuss project tasks for next day",
-            "time_start": 1512489600,
-            "time_end": 1512493200,
+            "timeStart": 1512489600,
+            "timeEnd": 1512493200,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -118,8 +118,8 @@ Feature: User can manage his own events
             "id": 5,
             "title": "Watch video of new course",
             "description": "Watch video",
-            "time_start": 1512495000,
-            "time_end": 1512500400,
+            "timeStart": 1512495000,
+            "timeEnd": 1512500400,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -136,8 +136,8 @@ Feature: User can manage his own events
             "id": 6,
             "title": "Wake up and breakfast",
             "description": "Wake up and breakfast",
-            "time_start": 1512532800,
-            "time_end": 1512536400,
+            "timeStart": 1512532800,
+            "timeEnd": 1512536400,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -154,8 +154,8 @@ Feature: User can manage his own events
             "id": 7,
             "title": "Days off",
             "description": "No business!",
-            "time_start": 1513026000,
-            "time_end": 1513306800,
+            "timeStart": 1513026000,
+            "timeEnd": 1513306800,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -172,8 +172,8 @@ Feature: User can manage his own events
             "id": 8,
             "title": "Some things",
             "description": "Some things",
-            "time_start": 1512489600,
-            "time_end": 1512536400,
+            "timeStart": 1512489600,
+            "timeEnd": 1512536400,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -190,8 +190,8 @@ Feature: User can manage his own events
             "id": 13,
             "title": "New event",
             "description": "Test creation a new event",
-            "time_start": 1483218000,
-            "time_end": 1483218000,
+            "timeStart": 1483218000,
+            "timeEnd": 1483218000,
             "status": {
                 "id": 1,
                 "code": "new",
@@ -208,8 +208,8 @@ Feature: User can manage his own events
             "id": 14,
             "title": "new task",
             "description": "Tetetewtwetwe",
-            "time_start": 1483218000,
-            "time_end": 1483218000,
+            "timeStart": 1483218000,
+            "timeEnd": 1483218000,
             "status": {
                 "id": 3,
                 "code": "canceled",
@@ -235,8 +235,8 @@ Feature: User can manage his own events
                   "id": 6,
                   "title": "Wake up and breakfast",
                   "description": "Wake up and breakfast",
-                  "time_start": 1512532800,
-                  "time_end": 1512536400,
+                  "timeStart": 1512532800,
+                  "timeEnd": 1512536400,
                   "status": {
                       "id": 1,
                       "code": "new",
@@ -253,8 +253,8 @@ Feature: User can manage his own events
                   "id": 8,
                   "title": "Some things",
                   "description": "Some things",
-                  "time_start": 1512489600,
-                  "time_end": 1512536400,
+                  "timeStart": 1512489600,
+                  "timeEnd": 1512536400,
                   "status": {
                       "id": 1,
                       "code": "new",
@@ -278,23 +278,21 @@ Feature: User can manage his own events
       And the response should contain json:
       """
         {
-            "event": {
+            "id": 1,
+            "title": "Shopping",
+            "description": "To buy an bread, butter and milk",
+            "timeStart": 1512475200,
+            "timeEnd": 1512477000,
+            "status": {
                 "id": 1,
-                "title": "Shopping",
-                "description": "To buy an bread, butter and milk",
-                "time_start": 1512475200,
-                "time_end": 1512477000,
-                "status": {
-                    "id": 1,
-                    "code": "new",
-                    "title": "New"
-                },
-                "priority": {
-                    "id": 2,
-                    "title": "Normal",
-                    "value": 5,
-                    "code": "normal"
-                }
+                "code": "new",
+                "title": "New"
+            },
+            "priority": {
+                "id": 2,
+                "title": "Normal",
+                "value": 5,
+                "code": "normal"
             }
         }
       """
@@ -314,7 +312,7 @@ Feature: User can manage his own events
     Scenario: User can create new event:
       When I am successfully logged in with username: "john@test.org", and password: "johnpass"
       Then the response code should be 200
-      When I send a "POST" request to "/event/create" with body:
+      When I send a "POST" request to "/event" with body:
       """
         {
           "title": "new task",
@@ -333,8 +331,47 @@ Feature: User can manage his own events
               "id": 17,
               "title": "new task",
               "description": "Description of new tesk",
-              "time_start": 1483304400,
-              "time_end": 1483390800,
+              "timeStart": 1483304400,
+              "timeEnd": 1483390800,
+              "status": {
+                  "id": 1,
+                  "code": "new",
+                  "title": "New"
+              },
+              "priority": {
+                  "id": 2,
+                  "title": "Normal",
+                  "value": 5,
+                  "code": "normal"
+              }
+          },
+          "message": "Event was created"
+      }
+      """
+@this
+  Scenario: User can create new event without status:
+    When I am successfully logged in with username: "john@test.org", and password: "johnpass"
+    Then the response code should be 200
+    When I send a "POST" request to "/event" with body:
+      """
+        {
+          "title": "new task",
+          "description": "Description of new tesk",
+          "timeStart": "2017-01-02 00:00",
+          "timeEnd": "2017-01-03 00:00",
+          "priority": 2
+        }
+      """
+    Then the response code should be 201
+    And the response should contain json:
+      """
+      {
+          "event": {
+              "id": 17,
+              "title": "new task",
+              "description": "Description of new tesk",
+              "timeStart": 1483304400,
+              "timeEnd": 1483390800,
               "status": {
                   "id": 1,
                   "code": "new",
@@ -352,7 +389,7 @@ Feature: User can manage his own events
       """
 
     Scenario: Anonymous user can not create event:
-      When I send a "POST" request to "/event/create" with body:
+      When I send a "POST" request to "/event" with body:
       """
         {
           "title": "new task",
@@ -375,7 +412,7 @@ Feature: User can manage his own events
     Scenario: User can edit his event:
       When I am successfully logged in with username: "john@test.org", and password: "johnpass"
       Then the response code should be 200
-      When I send a "PUT" request to "/event/9/edit" with body:
+      When I send a "PUT" request to "/event/9" with body:
       """
         {
           "title": "Edit not my task",
@@ -394,8 +431,8 @@ Feature: User can manage his own events
                 "id": 9,
                 "title": "Edit not my task",
                 "description": "Edited",
-                "time_start": 1483304400,
-                "time_end": 1483390800,
+                "timeStart": 1483304400,
+                "timeEnd": 1483390800,
                 "status": {
                     "id": 1,
                     "code": "new",
@@ -415,7 +452,7 @@ Feature: User can manage his own events
     Scenario: User can not edit not own event:
       When I am successfully logged in with username: "john@test.org", and password: "johnpass"
       Then the response code should be 200
-      When I send a "PUT" request to "/event/1/edit" with body:
+      When I send a "PUT" request to "/event/1" with body:
       """
         {
           "title": "Edit not my task",
@@ -439,7 +476,7 @@ Feature: User can manage his own events
     Scenario: User can delete his event:
       When I am successfully logged in with username: "john@test.org", and password: "johnpass"
       Then the response code should be 200
-      When I send a "DELETE" request to "/event/9/delete" with body:
+      When I send a "DELETE" request to "/event/9" with body:
         """
         """
       Then the response code should be 200
@@ -453,7 +490,7 @@ Feature: User can manage his own events
     Scenario: User can not delete not own event:
       When I am successfully logged in with username: "john@test.org", and password: "johnpass"
       Then the response code should be 200
-      When I send a "DELETE" request to "/event/1/delete" with body:
+      When I send a "DELETE" request to "/event/1" with body:
         """
         """
       Then the response code should be 403

@@ -116,6 +116,13 @@ export default Marionette.AppRouter.extend({
 
     createEventPage()
     {
+        this.applicationView.off(ApplicationView.Events.EVENT_CREATED_SUCCESS);
+
+        const self = this;
+        this.applicationView.on(ApplicationView.Events.EVENT_CREATED_SUCCESS, function(model) {
+            self.navigateWithTrigger('/event/' + model.get('id'));
+        });
+
         this.applicationView.showCreateEvent();
     },
 
