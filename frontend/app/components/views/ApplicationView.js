@@ -87,9 +87,9 @@ const ApplicationView = Marionette.View.extend({
         this.updateContentView(new EventListView());
     },
 
-    showEvent(id)
+    showEvent(event)
     {
-        this.updateContentView(new EventDetailsView({id: id}))
+        this.updateContentView(new EventDetailsView({model: event}))
     },
 
     showCreateEvent()

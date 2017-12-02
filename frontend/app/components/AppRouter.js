@@ -2,6 +2,7 @@ import Marionette from 'backbone.marionette';
 import Backbone from 'backbone';
 import SessionManager from './services/SessionManager';
 import User from './models/User';
+import Event from './models/Event';
 import ApplicationView from './views/ApplicationView';
 
 
@@ -111,7 +112,17 @@ export default Marionette.AppRouter.extend({
 
     eventPage(id)
     {
-        this.applicationView.showEvent(id);
+        const router = this;
+
+        let event = new Event({id: id});
+        event.fetch({
+            success: function (model) {
+                router.applicationView.showEvent(model);
+            },
+            error: function (response) {
+                router.navigateWithTrigger('notfound');
+            }
+        });
     },
 
     createEventPage()

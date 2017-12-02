@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 
 export default Backbone.Model.extend({
-    url: '/event',
+    urlRoot: '/event',
     defaults: {
         title: '',
         description: '',
@@ -10,11 +10,29 @@ export default Backbone.Model.extend({
     },
     parse: function (data)
     {
-        if (_.isObject(data.event))
-        {
-            return data.event;
+        let result = data;
+
+        if (_.isObject(result.event)) {
+            result = result.event;
         }
 
-        return data;
+        result = this.prepareDateFields(result);
+
+        return result;
+    },
+
+    prepareDateFields(attributes)
+    {
+        let dateFields = ['timeStart', 'timeEnd'];
+
+        for (let field of dateFields)
+        {
+            if (attributes[field].constructor !== Date.constructor)
+            {
+                attributes[field] = new Date(attributes[field]);
+            }
+        }
+
+        return attributes;
     }
 });
