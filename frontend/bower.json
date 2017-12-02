@@ -1,0 +1,20 @@
+{
+  "name": "event-manager",
+  "description": "Manager of events",
+  "main": "",
+  "authors": [
+    "Pavel Kolomytkin"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/pavelkolomitkin/eventManager",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}

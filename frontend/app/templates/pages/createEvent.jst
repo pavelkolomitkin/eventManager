@@ -6,12 +6,34 @@
     <div class="form-group">
         <textarea name="description" class="form-control" placeholder="Description..."></textarea>
     </div>
-    <div class="form-group">
-        <input type="datetime" name="timeStart" placeholder="Start time" class="form-control" />
-        <input type="datetime" name="timeEnd" placeholder="End time" class="form-control" />
+
+
+    <label class="col-md-1" for="dateTimeStartInput">From</label>
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="input-group date" id="dateTimeStart">
+                <input type="text" class="form-control" id="dateTimeStartInput" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
     </div>
+    <label class="col-md-1" for="dateTimeEndInput">Till</label>
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="input-group date" id="dateTimeEnd">
+                <input type="text" class="form-control" id="dateTimeEndInput" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
-        <select name="priority" class="form-control">
+        <label for="event-priority">Priority</label>
+        <select id="event-priority" name="priority" class="form-control">
             <option value="1">Normal</option>
             <option value="2">Secondary</option>
             <option value="3">Argent</option>

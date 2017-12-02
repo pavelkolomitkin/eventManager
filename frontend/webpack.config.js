@@ -54,15 +54,19 @@ const webpackCommon = {
       $: 'jquery',
       _: 'underscore'
     }),
+      new webpack.ResolverPlugin(
+          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+      )
       // new webpack.DefinePlugin({
       //     API_BASE_URL: 'http://127.0.0.1:8000/api/'
       // })
   ],
   resolve: {
-    root: path.join(__dirname, './app')
+    root: path.join(__dirname, './app'),
+    modulesDirectories: ["node_modules", "bower_components"]
   },
   resolveLoader: {
-    root: path.join(__dirname, './node_modules')
+    root: [path.join(__dirname, './node_modules'), path.join(__dirname, './bower_components')]
   }
 };
 
