@@ -5,22 +5,32 @@ import User from './models/User';
 import Event from './models/Event';
 import ApplicationView from './views/ApplicationView';
 
+const MAIN_PAGE_ROUTE = '';
+const LOGIN_ROUTE = 'login';
+const REGISTER_ROUTE = 'register';
+const PROFILE_ROUTE = 'profile';
+const EVENTS_ROUTE = 'events(/page:page)(/date:date)';
+const EVENT_CREATE_ROUTE = 'event/create';
+const EVENT_DETAILS_ROUTE = 'event/:id';
+const EVENT_EDIT_ROUTE = 'event/:id/edit';
+const NOT_FOUND_ROUTE = 'notfound';
 
-export default Marionette.AppRouter.extend({
+
+const AppRouter = Marionette.AppRouter.extend({
 
     routes: {
         '': 'mainPage',
         'login': 'loginPage',
         'register': 'registrationPage',
         'profile': 'profilePage',
-        'events': 'eventsPage',
+        'events(/page:page)(/date:date)': 'eventsPage',
         'event/create': 'createEventPage',
         'event/:id': 'eventPage',
         'event/:id/edit': 'editEventPage',
         'notfound': 'notFoundPage'
     },
 
-    initialize(application, options)
+    init(application)
     {
         this.application = application;
         this.applicationView = application.getView();
@@ -29,6 +39,25 @@ export default Marionette.AppRouter.extend({
         const session = SessionManager.getInstance();
         session.on(SessionManager.Events.SESSION_CHANGE, this.onUserSessionChangeHandler, this);
     },
+
+
+    generatePath(name, params)
+    {
+        // TODO усовершенствовать алгоритм - необязательные параметры маршрута могут не передаваться
+
+        let result = name;
+
+        result = result.replace(new RegExp('\\(', 'g'), '');
+        result = result.replace(new RegExp('\\)', 'g'), '');
+
+        for (let param in params)
+        {
+            result = result.replace(':' + param, params[param]);
+        }
+
+        return result;
+    },
+
 
     onUserSessionChangeHandler(userData)
     {
@@ -105,9 +134,23 @@ export default Marionette.AppRouter.extend({
         });
     },
 
-    eventsPage()
+    eventsPage(page, date)
     {
-        this.applicationView.showEventList();
+        if (!SessionManager.getInstance().isTokenValid())
+        {
+            this.navigateWithTrigger('/login');
+            return;
+        }
+
+        let currentPage = page || 1;
+        let selectedDate = null;
+
+        if (date)
+        {
+            selectedDate = isNaN(Date.parse(date)) ? null : (new Date(date));
+        }
+
+        this.applicationView.showEventList(currentPage, selectedDate);
     },
 
     eventPage(id)
@@ -152,3 +195,31 @@ export default Marionette.AppRouter.extend({
     }
 
 });
+
+AppRouter.instance = null;
+
+AppRouter.getInstance = function () {
+
+    if (!AppRouter.instance)
+    {
+        AppRouter.instance = new AppRouter();
+    }
+
+    return AppRouter.instance;
+};
+
+AppRouter.Routes = {
+    MAIN_PAGE: MAIN_PAGE_ROUTE,
+    LOGIN: LOGIN_ROUTE,
+    REGISTER: REGISTER_ROUTE,
+    PROFILE: PROFILE_ROUTE,
+    EVENTS: EVENTS_ROUTE,
+    EVENT_CREATE: EVENT_CREATE_ROUTE,
+    EVENT_DETAILS: EVENT_DETAILS_ROUTE,
+    EVENT_EDIT: EVENT_EDIT_ROUTE,
+    NOT_FOUND: NOT_FOUND_ROUTE
+};
+
+
+
+export default AppRouter;

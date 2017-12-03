@@ -82,9 +82,9 @@ const ApplicationView = Marionette.View.extend({
         this.updateContentView(new ProfileView({user: user}));
     },
 
-    showEventList()
+    showEventList(page, date)
     {
-        this.updateContentView(new EventListView());
+        this.updateContentView(new EventListView({page:page, date: date}));
     },
 
     showEvent(event)

@@ -9,7 +9,10 @@ const bootstrapEntryPoints = require('./webpack.bootstrap.config');
 
 const webpackCommon = {
   entry: {
-    app: ['./app/initialize', bootstrapEntryPoints.dev]
+    app: [
+        './app/initialize',
+        bootstrapEntryPoints.dev
+    ]
   },
   module: {
     loaders: [
@@ -30,7 +33,24 @@ const webpackCommon = {
         exclude: /node_modules/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'bootstrap')
       },
-      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.(jpe?g|png|gif)$/i, loader:"file" },
+    ],
+    rules: [
+        {
+            test: /\.(jpe?g|png|gif)$/i,
+            loader:"file-loader",
+            query:{
+                name:'[name].[ext]',
+                outputPath:'images/'
+                //the images will be emmited to public/assets/images/ folder
+                //the images will be put in the DOM <style> tag as eg. background: url(assets/images/image.png);
+            }
+        },
+        {
+            test: /\.css$/,
+            loaders: ["style-loader","css-loader"]
+        }
     ]
   },
   // output: {

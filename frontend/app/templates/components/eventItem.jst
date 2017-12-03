@@ -1,5 +1,9 @@
 <div class="event-item">
-    <h2><a href="#/event/2"><%- title %></a></h2>
+    <h2><a href="#/event/<%- id %>"><%- title %></a></h2>
     <div class="event-item-description text"><%- description %></div>
-    <div class="text-muted">From <%- timeStart %> to <%- timeEnd %></div>
+    <div class="text-muted">From <%- timeStart.toLocaleDateString('sv-SE') %> to <%- timeEnd.toLocaleDateString('sv-SE') %></div>
+    <div>
+        <span>Status: </span><kbd class="bg-primary"><%- status.title %></kbd>&nbsp;&nbsp;
+        <span>Priority: </span><kbd><%- priority.title %></kbd>
+    </div>
 </div>

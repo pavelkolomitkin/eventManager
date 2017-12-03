@@ -1,9 +1,7 @@
-import EventList from '../../collections/EventCollection';
-import Event from '../../models/Event';
-
 import ContentView from './ContentView';
 import EventListFilterView from '../components/EventListFilterView';
 import EventListView from '../components/EventListView';
+import AppRouter from '../../AppRouter';
 
 import template from '../../../templates/pages/eventList.jst';
 
@@ -11,33 +9,38 @@ export default ContentView.extend({
     template: template,
 
     regions: {
-        'filter': '#event-filter-container',
-        'list': '#event-list-container'
-    },
-
-    initialize()
-    {
-        this.events = new EventList([
-            new Event({title: 'Hello', description: 'First event', timeStart: new Date('2017-05-12 15:30'), timeEnd: new Date('2017-05-12 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') }),
-            new Event({title: 'New Event', description: 'Go to the school', timeStart: new Date('2017-05-13 14:30'), timeEnd: new Date('2017-05-13 16:30') })
-        ]);
+        'filter': {
+            el: '#event-filter-container',
+            replaceElement: true
+        },
+        'list': {
+            el: '#event-list-container',
+            replaceElement: true
+        }
     },
 
     onRender()
     {
-        this.showChildView('filter', new EventListFilterView());
-        this.showChildView('list', new EventListView({collection: this.events}));
+        let filterView = new EventListFilterView({
+            date: this.options.date
+        });
+        let eventListView = new EventListView({
+                page: this.options.page ? this.options.page : 1,
+                date: this.options.date
+            }
+        );
+
+        this.showChildView('filter', filterView);
+        this.showChildView('list', eventListView);
+
+        const router = AppRouter.getInstance();
+        this.listenTo(filterView, EventListFilterView.Events.DATE_CHAGED, function (date) {
+
+            router.navigateWithTrigger(router.generatePath(AppRouter.Routes.EVENTS, {
+                date: (date ? date.toLocaleDateString('sv-SE') : null),
+                page: 1
+            }))
+
+        });
     }
 });

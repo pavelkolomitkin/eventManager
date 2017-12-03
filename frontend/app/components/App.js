@@ -8,6 +8,7 @@ export default Marionette.Application.extend({
     onStart() {
         this.showView(new ApplicationView());
 
-        this.router = new AppRouter(this, {});
+        this.router = AppRouter.getInstance();
+        this.router.init(this);
     }
 });

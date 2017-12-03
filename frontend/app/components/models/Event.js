@@ -29,7 +29,7 @@ export default Backbone.Model.extend({
         {
             if (attributes[field].constructor !== Date.constructor)
             {
-                attributes[field] = new Date(attributes[field]);
+                attributes[field] = new Date(attributes[field] * 1000);
             }
         }
 
