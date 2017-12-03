@@ -1,9 +1,9 @@
 import Marionette from 'backbone.marionette';
-import EventPriority from '../../models/EventPriority';
+import EventStatus from '../../models/EventStatus';
 
 export default Marionette.View.extend({
 
-    model: EventPriority,
+    model: EventStatus,
 
     template: _.template('<%- title %>'),
 

@@ -15,6 +15,9 @@ const EVENT_DETAILS_ROUTE = 'event/:id';
 const EVENT_EDIT_ROUTE = 'event/:id/edit';
 const NOT_FOUND_ROUTE = 'notfound';
 
+const LOGIN_ROUTE_NAME = 'loginPage';
+const REGISTER_ROUTE_NAME = 'registrationPage';
+
 
 const AppRouter = Marionette.AppRouter.extend({
 
@@ -40,6 +43,12 @@ const AppRouter = Marionette.AppRouter.extend({
         session.on(SessionManager.Events.SESSION_CHANGE, this.onUserSessionChangeHandler, this);
     },
 
+    onRoute(name, path, args) {
+        if ((name !== LOGIN_ROUTE_NAME) && (name !== REGISTER_ROUTE_NAME))
+        {
+            this.checkAuth();
+        }
+    },
 
     generatePath(name, params)
     {
@@ -70,6 +79,14 @@ const AppRouter = Marionette.AppRouter.extend({
     navigateWithTrigger(route)
     {
         this.navigate(route, {trigger: true});
+    },
+
+    checkAuth()
+    {
+        if (!SessionManager.getInstance().isTokenValid())
+        {
+            this.navigateWithTrigger('/login');
+        }
     },
 
     mainPage()
@@ -115,12 +132,6 @@ const AppRouter = Marionette.AppRouter.extend({
 
     profilePage()
     {
-        if (!SessionManager.getInstance().isTokenValid())
-        {
-            this.navigateWithTrigger('/login');
-            return;
-        }
-
         const self = this;
 
         let user = new User();
@@ -136,12 +147,6 @@ const AppRouter = Marionette.AppRouter.extend({
 
     eventsPage(page, date)
     {
-        if (!SessionManager.getInstance().isTokenValid())
-        {
-            this.navigateWithTrigger('/login');
-            return;
-        }
-
         let currentPage = page || 1;
         let selectedDate = null;
 
@@ -174,7 +179,7 @@ const AppRouter = Marionette.AppRouter.extend({
 
         const self = this;
         this.applicationView.on(ApplicationView.Events.EVENT_CREATED_SUCCESS, function(model) {
-            self.navigateWithTrigger('/event/' + model.get('id'));
+            self.navigateWithTrigger(self.generatePath(AppRouter.Routes.EVENT_DETAILS, {id: model.get('id')}));
         });
 
         this.applicationView.showCreateEvent();
@@ -182,7 +187,22 @@ const AppRouter = Marionette.AppRouter.extend({
 
     editEventPage(id)
     {
-        this.applicationView.showEditEvent(id);
+        const router = this;
+
+        let event = new Event({id: id});
+        event.fetch({
+            success: function (model) {
+
+                router.applicationView.showEditEvent(model);
+
+                router.applicationView.on(ApplicationView.Events.EVENT_EDITED_SUCCESS, function(model) {
+                    router.navigateWithTrigger(router.generatePath(AppRouter.Routes.EVENT_DETAILS, {id: model.get('id')}));
+                });
+            },
+            error: function (response) {
+                router.navigateWithTrigger('notfound');
+            }
+        });
     },
 
     notFoundPage()

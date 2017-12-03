@@ -104,9 +104,16 @@ const ApplicationView = Marionette.View.extend({
         this.updateContentView(view);
     },
 
-    showEditEvent(id)
+    showEditEvent(event)
     {
-        this.updateContentView(new EditEventView({id: id}));
+        let view = new EditEventView({model: event});
+
+        const self = this;
+        this.listenTo(view, EditEventView.Events.EVENT_EDITED_SUCCESS, function (model) {
+            self.triggerMethod(ApplicationView.Events.EVENT_EDITED_SUCCESS, model);
+        });
+
+        this.updateContentView(view);
     },
 
     showNotFound(error)
@@ -118,7 +125,9 @@ const ApplicationView = Marionette.View.extend({
 ApplicationView.Events = {
     USER_LOGIN_SUCCESS: 'user:login:success',
     USER_REGISTER_SUCCESS: 'user:register:success',
-    EVENT_CREATED_SUCCESS: 'event:create:success'
+    EVENT_CREATED_SUCCESS: 'event:create:success',
+    EVENT_EDITED_SUCCESS: 'event:edit:success'
+
 };
 
 export default ApplicationView;

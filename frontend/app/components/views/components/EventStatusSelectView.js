@@ -1,11 +1,10 @@
 import Marionette from 'backbone.marionette';
-import EventPriorityCollection from '../../collections/EventPriorityCollection';
-import EventPrioritySelectItemView from './EventPrioritySelectItemView';
-
+import EventStatusCollection from '../../collections/EventStatusCollection';
+import EventStatusSelectItemView from './EventStatusSelectItemView';
 
 export default Marionette.CollectionView.extend({
     template: _.noop,
-    collection: EventPriorityCollection,
+    collection: EventStatusCollection,
     tagName: 'select',
     className: 'form-control',
 
@@ -13,7 +12,7 @@ export default Marionette.CollectionView.extend({
     {
         this.selectedId = options.selectedId ? options.selectedId : 0;
 
-        this.collection = new EventPriorityCollection();
+        this.collection = new EventStatusCollection();
         this.collection.fetch();
     },
 
@@ -24,5 +23,5 @@ export default Marionette.CollectionView.extend({
         };
     },
 
-    childView: EventPrioritySelectItemView
+    childView: EventStatusSelectItemView
 });

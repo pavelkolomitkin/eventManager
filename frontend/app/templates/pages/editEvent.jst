@@ -6,27 +6,44 @@
     <div class="form-group">
         <textarea name="description" class="form-control" placeholder="Description..."><%- description %></textarea>
     </div>
+
+    <label class="col-md-1" for="dateTimeStartInput">From</label>
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="input-group date" id="dateTimeStart">
+                <input type="text" class="form-control" id="dateTimeStartInput" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span class="text-danger form-error" id="timeStart-error"></span>
+        </div>
+    </div>
+    <label class="col-md-1" for="dateTimeEndInput">Till</label>
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="input-group date" id="dateTimeEnd">
+                <input type="text" class="form-control" id="dateTimeEndInput" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span class="text-danger form-error" id="timeEnd-error"></span>
+        </div>
+    </div>
+
+
     <div class="form-group">
-        <input type="datetime" name="timeStart" placeholder="Start time" class="form-control" value="<%- timeStart %>" />
-        <input type="datetime" name="timeEnd" placeholder="End time" class="form-control" value="<%- timeEnd %>" />
+        <label>Priority</label>
+        <div id="event-priority-region"></div>
+        <span class="text-danger form-error" id="time-priority-error"></span>
     </div>
     <div class="form-group">
-        <label>Priority: </label>
-        <select name="priority" class="form-control">
-            <option value="1">Normal</option>
-            <option value="2">Secondary</option>
-            <option value="3">Argent</option>
-        </select>
+        <label>Status</label>
+        <div id="event-status-region"></div>
+        <span class="text-danger form-error" id="time-status-error"></span>
     </div>
     <div class="form-group">
-        <label>Status: </label>
-        <select name="priority" class="form-control">
-            <option value="1">New</option>
-            <option value="2">Canceled</option>
-            <option value="3">Fulfilled</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary right" />
+        <input type="submit" value="Save" class="btn btn-primary right" />
     </div>
 </form>
