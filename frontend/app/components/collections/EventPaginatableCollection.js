@@ -13,6 +13,10 @@ export default BackbonePaginator.extend({
         this.date = options.date;
     },
 
+    state: {
+        pageSize:10
+    },
+
     queryParams: {
         pageSize: null,
         currentPage: 'page',
