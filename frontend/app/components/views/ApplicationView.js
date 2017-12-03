@@ -79,7 +79,7 @@ const ApplicationView = Marionette.View.extend({
 
     showProfile(user)
     {
-        this.updateContentView(new ProfileView({user: user}));
+        this.updateContentView(new ProfileView({model: user}));
     },
 
     showEventList(page, date)

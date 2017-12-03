@@ -3,7 +3,12 @@
     <ul class="pagination">
 
         <% for (i = 0; i < countPages; i++) { %>
-        <li><a href="#/<%= router.generatePath(routeName, {page: i + 1, date: selectedDate}) %>"><%- (i + 1) %></a></li>
+            <% if (i == (page - 1)) { %>
+            <li><span class="active"><%- (i + 1) %></span></li>
+            <% } else {%>
+            <li><a href="#/<%= router.generatePath(routeName, {page: i + 1, date: selectedDate}) %>"><%- (i + 1) %></a></li>
+            <% } %>
+
         <% } %>
 
     </ul>

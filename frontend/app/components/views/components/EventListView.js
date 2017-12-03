@@ -29,7 +29,11 @@ export default Marionette.View.extend({
         this.events.fetch({
             success: function () {
                 let itemsView = new EventItemsView({collection: self.events, sort: false});
-                let pagerView = new EventPagerView({collection: self.events, date: self.options.date});
+                let pagerView = new EventPagerView({
+                    collection: self.events,
+                    selectedDate: self.options.date,
+                    page: self.options.page
+                });
 
 
                 self.showChildView('eventItems', itemsView);

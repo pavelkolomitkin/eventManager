@@ -52,16 +52,22 @@ const AppRouter = Marionette.AppRouter.extend({
 
     generatePath(name, params)
     {
-        // TODO усовершенствовать алгоритм - необязательные параметры маршрута могут не передаваться
-
         let result = name;
+        params = params || {};
+
+        let parametersInPatternExpression = new RegExp("\:([a-z]+)", 'g');
+        let parametersInPattern = result.match(parametersInPatternExpression);
 
         result = result.replace(new RegExp('\\(', 'g'), '');
         result = result.replace(new RegExp('\\)', 'g'), '');
 
-        for (let param in params)
+
+        for (let i = 0; i < parametersInPattern.length; i++)
         {
-            result = result.replace(':' + param, params[param]);
+            let parameter = parametersInPattern[i].substr(1);
+            let value = params[parameter] ? params[parameter] : 'null';
+
+            result = result.replace(':' + parameter, value);
         }
 
         return result;
