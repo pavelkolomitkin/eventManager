@@ -7,7 +7,7 @@ export function loadStatuses() {
         dispatch(serverActions.serverRequest());
         ApiClient.getInstance().loadStatuses(
             (result) => {
-                dispatch(statusesLoaded(result.data.statuses));
+                dispatch(statusesLoaded(result.data));
                 dispatch(serverActions.serverResponse());
             },
             (error) => {

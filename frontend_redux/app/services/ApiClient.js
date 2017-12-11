@@ -8,6 +8,11 @@ const ApiClient = class {
         this.authToken = '';
     }
 
+    convertTimestampToDate(timeStamp)
+    {
+        return new Date(timeStamp * 1000);
+    }
+
     setBaseUrl(baseUrl)
     {
         this.baseUrl = baseUrl;
@@ -122,6 +127,7 @@ const ApiClient = class {
             params.date = date;
         }
 
+        const self = this;
         this.makeRequest(
             'GET',
             this.getAbsoluteUrl('/event/list', params),
@@ -129,8 +135,8 @@ const ApiClient = class {
             (result) => {
 
                 result.data.events = result.data.events.map(function(event, index){
-                    event.timeStart = new Date(event.timeStart);
-                    event.timeEnd = new Date(event.timeEnd);
+                    event.timeStart = self.convertTimestampToDate(event.timeStart);
+                    event.timeEnd = self.convertTimestampToDate(event.timeEnd);
 
                     return event;
                 });
@@ -143,14 +149,15 @@ const ApiClient = class {
 
     loadEvent(id, successCallback, errorCallback)
     {
+        const self = this;
         this.makeRequest(
             'GET',
             this.getAbsoluteUrl('/event/' + id),
             {},
             (result) => {
                 let event = result.data;
-                event.timeStart = new Date(event.timeStart);
-                event.timeEnd = new Date(event.timeEnd);
+                event.timeStart = self.convertTimestampToDate(event.timeStart);
+                event.timeEnd = self.convertTimestampToDate(event.timeEnd);
 
                 successCallback(result);
             },
@@ -196,7 +203,8 @@ const ApiClient = class {
                 description: description,
                 timeStart: timeStart,
                 timeEnd: timeEnd,
-                priority: priority
+                priority: priority,
+                status: status
             },
             successCallback,
             errorCallback

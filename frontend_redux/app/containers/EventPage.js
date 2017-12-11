@@ -13,7 +13,6 @@ class EventPage extends React.Component {
             event: {}
         };
 
-        debugger;
         this.onDelete = this.onDelete.bind(this);
         this.props.actions.loadEvent(
             this.props.id,

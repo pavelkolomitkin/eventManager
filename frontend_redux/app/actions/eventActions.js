@@ -70,7 +70,7 @@ export function createEvent(title, description, timeStart, timeEnd, priorityId, 
                 successCallback(result.data.event);
             },
             (error) => {
-                debugger;
+
                 let errors = {};
 
                 const responseErrors = error.response.data.children;
@@ -100,7 +100,7 @@ export function eventCreatedError(errors) {
     return {type: types.EVENT_CREATED_ERROR, errors: errors};
 }
 
-export function editEvent(id, title, description, timeStart, timeEnd, priorityId, statusId)
+export function updateEvent(id, title, description, timeStart, timeEnd, priorityId, statusId, successCallback)
 {
     return (dispatch) => {
         dispatch(serverActions.serverRequest());
@@ -116,10 +116,26 @@ export function editEvent(id, title, description, timeStart, timeEnd, priorityId
 
                 dispatch(eventEditedSuccess(result.data.event));
                 dispatch(serverActions.serverResponse());
+                successCallback(result.data.event)
             },
             (error) => {
 
-                dispatch(eventEditedError(error));
+                let errors = {};
+
+                const responseErrors = error.response.data.children;
+                const processingFields = ['title', 'description', 'priority', 'timeStart', 'timeEnd', 'status'];
+
+                processingFields.map((field, index) => {
+                    if (responseErrors[field] &&
+                        responseErrors[field].errors &&
+                        responseErrors[field].errors.length > 0)
+                    {
+                        errors[field] = responseErrors[field].errors[0];
+                    }
+                });
+
+
+                dispatch(eventEditedError(errors));
                 dispatch(serverActions.serverResponse());
             }
         );

@@ -46,15 +46,12 @@ const EventCreatePage = ({errors, onSubmit, onPriorityChange, onStartDateChange,
                     <label>Priority</label>
                     <Select
                         id="prioritySelect"
-                        // ref="prioritySelect"
                         options={priorityOptions}
                         simpleValue
                         clearable={false}
                         name="prioritySelect"
-                        // disabled={this.state.disabled}
                         value={priorityValue}
                         onChange={onPriorityChange}
-                        // rtl={this.state.rtl}
                         openOnClick={false}
                         searchable={false}
                     />

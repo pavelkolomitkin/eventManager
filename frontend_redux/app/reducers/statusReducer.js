@@ -7,7 +7,7 @@ export default function statusReducer(state = [], action)
     {
         case types.EVENT_STATUSES_LOADED:
 
-            return {...state, statuses: action.statuses };
+            return [...action.statuses];
 
             break;
 
