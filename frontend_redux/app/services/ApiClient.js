@@ -113,28 +113,110 @@ const ApiClient = class {
 
     loadEvents(page = 1, date = null, successCallback, errorCallback)
     {
-        let url = this.getBaseUrl();
-        if (page > 1)
-        {
-            url += '/page' + page;
-        }
+        let params = {
+            page: page
+        };
+
         if (date)
         {
-            url += '/date' + date;
+            params.date = date;
         }
 
-        axios({
-            method: 'GET',
-            url: url,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.getAuthToken()
-            }
-        }).then((response) => {
-            successCallback(response.events, response.total)
-        }).catch((error) => {
-            errorCallback(error);
-        });
+        this.makeRequest(
+            'GET',
+            this.getAbsoluteUrl('/event/list', params),
+            {},
+            (result) => {
+
+                result.data.events = result.data.events.map(function(event, index){
+                    event.timeStart = new Date(event.timeStart);
+                    event.timeEnd = new Date(event.timeEnd);
+
+                    return event;
+                });
+
+                successCallback(result);
+            },
+            errorCallback
+        );
+    }
+
+    loadEvent(id, successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'GET',
+            this.getAbsoluteUrl('/event/' + id),
+            {},
+            successCallback,
+            errorCallback
+        );
+    }
+
+    deleteEvent(id, successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'DELETE',
+            this.getAbsoluteUrl('/event/' + id),
+            {},
+            successCallback,
+            errorCallback
+        )
+    }
+
+    createEvent(title, description, timeStart, timeEnd, priority, successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'POST',
+            this.getAbsoluteUrl('/event'),
+            {
+                title: title,
+                description: description,
+                timeStart: timeStart,
+                timeEnd: timeEnd,
+                priority: priority
+            },
+            successCallback,
+            errorCallback
+        );
+    }
+
+    updateEvent(id, title, description, timeStart, timeEnd, priority, status, successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'PUT',
+            this.getAbsoluteUrl('/event/' + id),
+            {
+                title: title,
+                description: description,
+                timeStart: timeStart,
+                timeEnd: timeEnd,
+                priority: priority
+            },
+            successCallback,
+            errorCallback
+        );
+    }
+
+    loadEventPriorities(successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'GET',
+            this.getAbsoluteUrl('/priority/list'),
+            {},
+            successCallback,
+            errorCallback
+        );
+    }
+
+    loadStatuses(successCallback, errorCallback)
+    {
+        this.makeRequest(
+            'GET',
+            this.getAbsoluteUrl('/status/list'),
+            {},
+            successCallback,
+            errorCallback
+        )
     }
 
 };

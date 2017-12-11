@@ -1,6 +1,7 @@
 import * as types from './types';
 import ApiClient from '../services/ApiClient';
 import * as serverActions from './serverActions';
+import SessionManager from '../services/SessionManager';
 
 export function loginUser(username, password, successCallback) {
 
@@ -12,6 +13,10 @@ export function loginUser(username, password, successCallback) {
             username,
             password,
             (response) => {
+                // TODO сделать установку данных значений в store.subscribe(() => {здесь})
+                ApiClient.getInstance().setAuthToken(response.data.token);
+                SessionManager.getInstance().keepAuthToken(response.data.token);
+
                 dispatch(userLoginSuccess(response));
                 dispatch(serverActions.serverResponse());
                 successCallback(response.data);
@@ -34,6 +39,10 @@ export function registerUser(username, email, password, passwordRepeat, successC
             password,
             passwordRepeat,
             (response) => {
+                // TODO сделать установку данных значений в store.subscribe(() => {здесь})
+                ApiClient.getInstance().setAuthToken(response.data.token);
+                SessionManager.getInstance().keepAuthToken(response.data.token);
+
                 dispatch(userRegisterSuccess(response.data));
                 dispatch(serverActions.serverResponse());
                 successCallback(response.data);

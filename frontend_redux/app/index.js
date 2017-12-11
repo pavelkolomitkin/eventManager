@@ -8,6 +8,7 @@ import './apiClientConfig';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css';
+import 'react-select/dist/react-select.css';
 import './styles/app.css';
 
 import 'jquery';

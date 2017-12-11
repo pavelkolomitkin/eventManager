@@ -7,7 +7,7 @@ export default function priorityReducer(state = [], action)
     {
         case types.EVENT_PRIORITIES_LOADED:
 
-            return action.priorities;
+            return [...action.priorities];
 
             break;
 

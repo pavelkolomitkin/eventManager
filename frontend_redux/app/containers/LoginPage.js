@@ -4,8 +4,6 @@ import {bindActionCreators} from 'redux';
 import LoginPageView from '../components/LoginPage';
 import * as securityActions from '../actions/securityActions';
 import FormPage from './FormPage';
-import SessionManager from '../services/SessionManager';
-
 
 class LoginPage extends FormPage {
     constructor(props, context) {
@@ -22,9 +20,7 @@ class LoginPage extends FormPage {
         this.props.actions.loginUser(
             this.state.userName,
             this.state.password,
-            (result) => {
-                SessionManager.getInstance().keepAuthToken(result.token);
-
+            () => {
                 this.props.history.push('/');
             });
     }

@@ -1,3 +1,7 @@
 import ApiClient from './services/ApiClient';
+import SessionManager from './services/SessionManager';
 
-ApiClient.getInstance().setBaseUrl(API_BASE_URL);
+let client = ApiClient.getInstance();
+
+client.setBaseUrl(API_BASE_URL);
+client.setAuthToken(SessionManager.getInstance().getAuthToken());

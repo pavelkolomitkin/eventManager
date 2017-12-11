@@ -2,7 +2,7 @@ import * as types from './types';
 import ApiClient from '../services/ApiClient';
 import * as serverActions from './serverActions';
 
-export function loadUserProfile(successCallback, errorCallback)
+export function loadUserProfile()
 {
     return (dispatch) => {
         dispatch(serverActions.serverRequest());
@@ -10,12 +10,10 @@ export function loadUserProfile(successCallback, errorCallback)
             (result) => {
                 dispatch(userProfileLoaded(result.data));
                 dispatch(serverActions.serverResponse());
-                successCallback(result.data);
             },
             () => {
                 dispatch(userProfileLoadError());
                 dispatch(serverActions.serverResponse());
-                errorCallback();
             }
         );
 
