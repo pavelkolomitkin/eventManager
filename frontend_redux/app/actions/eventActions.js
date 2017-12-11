@@ -25,21 +25,22 @@ export function eventsLoaded(events, total) {
     return {type: types.EVENTS_LOADED, events: events, total: total };
 }
 
-export function loadEvent(id, successCallback) {
+export function loadEvent(id, successCallback, errorCallback) {
     return (dispatch) => {
         dispatch(serverActions.serverRequest());
         ApiClient.getInstance().loadEvent(
             id,
             (result) => {
 
-                dispatch(eventLoadedSuccess(result.data.event));
+                dispatch(eventLoadedSuccess(result.data));
                 dispatch(serverActions.serverResponse());
-                successCallback(result.data.event);
+                successCallback(result.data);
             },
             (error) => {
 
                 dispatch(eventLoadedError(error));
                 dispatch(serverActions.serverResponse());
+                errorCallback(error);
             }
         )
     };

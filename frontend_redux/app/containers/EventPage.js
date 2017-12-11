@@ -13,10 +13,17 @@ class EventPage extends React.Component {
             event: {}
         };
 
+        debugger;
         this.onDelete = this.onDelete.bind(this);
-        this.props.actions.loadEvent(this.props.id, (event) => {
-            this.setState({event: event});
-        });
+        this.props.actions.loadEvent(
+            this.props.id,
+            (event) => {
+                this.setState({event: event});
+            },
+            (error) => {
+                this.props.history.push('/notfound');
+            }
+            );
     }
 
     onDelete()
@@ -48,6 +55,7 @@ class EventPage extends React.Component {
 EventPage.propTypes = {};
 
 function mapStateToProps(state, ownProps) {
+
     return {
         state: state,
         id: ownProps.match.params.id

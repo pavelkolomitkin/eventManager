@@ -147,7 +147,13 @@ const ApiClient = class {
             'GET',
             this.getAbsoluteUrl('/event/' + id),
             {},
-            successCallback,
+            (result) => {
+                let event = result.data;
+                event.timeStart = new Date(event.timeStart);
+                event.timeEnd = new Date(event.timeEnd);
+
+                successCallback(result);
+            },
             errorCallback
         );
     }
