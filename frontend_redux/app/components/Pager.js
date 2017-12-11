@@ -32,11 +32,16 @@ class Pager extends React.Component {
         }
 
         return (
-            <nav aria-label="Page navigation">
-                <ul className="pagination">
-                    {pages}
-                </ul>
-            </nav>
+            <div>
+            {(totalItems > pageSize) ?
+                <nav aria-label="Page navigation">
+                    <ul className="pagination">
+                        {pages}
+                    </ul>
+                </nav> :
+                ''
+            }
+            </div>
         );
     }
 }

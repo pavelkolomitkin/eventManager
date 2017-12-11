@@ -26,7 +26,7 @@ class RegisterPage extends FormPage {
             this.state.password,
             this.state.passwordRepeat,
             () => {
-                this.props.history.push('/');
+                this.props.history.push('/profile');
             }
         );
     }

@@ -17,6 +17,8 @@ class Header extends React.Component {
     {
         SessionManager.getInstance().logout();
         this.props.actions.userLogout();
+
+        this.props.history.push('/login');
     }
 
     render() {

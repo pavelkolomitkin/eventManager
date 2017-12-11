@@ -21,7 +21,7 @@ class LoginPage extends FormPage {
             this.state.userName,
             this.state.password,
             () => {
-                this.props.history.push('/');
+                this.props.history.push('/events');
             });
     }
 
